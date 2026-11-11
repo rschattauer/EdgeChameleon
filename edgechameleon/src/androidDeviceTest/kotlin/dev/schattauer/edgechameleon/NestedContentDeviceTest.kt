@@ -70,7 +70,7 @@ class NestedContentDeviceTest {
                         Box(
                             Modifier.fillMaxSize()
                                 .graphicsLayer {}
-                                .background(if (current % 2 == 0) Color.White else Color.Black)
+                                .background(if (current % 2 == 0) Color.White else Color.Black),
                         )
                     }
                 }

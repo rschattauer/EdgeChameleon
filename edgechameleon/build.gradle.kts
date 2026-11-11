@@ -85,7 +85,7 @@ mavenPublishing {
     pom {
         name.set("EdgeChameleon")
         description.set(
-            "Picks light or dark system bar icons from the content behind the bars, for Compose Multiplatform."
+            "Picks light or dark system bar icons from the content behind the bars, for Compose Multiplatform.",
         )
         inceptionYear.set("2026")
         url.set("https://github.com/rschattauer/EdgeChameleon")

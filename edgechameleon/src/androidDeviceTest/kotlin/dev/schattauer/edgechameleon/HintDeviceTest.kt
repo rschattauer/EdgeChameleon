@@ -40,13 +40,13 @@ class HintDeviceTest {
             Box(
                 Modifier.edgeChameleon(navigationBar = false, state = state)
                     .fillMaxSize()
-                    .background(content)
+                    .background(content),
             ) {
                 Box(
                     Modifier.fillMaxWidth(barWidth)
                         .height(200.dp)
                         .edgeChameleonHint(hint)
-                        .background(barColor)
+                        .background(barColor),
                 )
             }
         }
@@ -137,13 +137,13 @@ class HintDeviceTest {
             Box(
                 Modifier.edgeChameleon(navigationBar = false, state = outer)
                     .fillMaxSize()
-                    .background(Color.Black)
+                    .background(Color.Black),
             ) {
                 Box(
                     Modifier.edgeChameleon(navigationBar = false, state = inner)
                         .fillMaxWidth()
                         .height(200.dp)
-                        .then(if (hinted) Modifier.edgeChameleonHint(BarIcons.Light) else Modifier)
+                        .then(if (hinted) Modifier.edgeChameleonHint(BarIcons.Light) else Modifier),
                 )
             }
         }
