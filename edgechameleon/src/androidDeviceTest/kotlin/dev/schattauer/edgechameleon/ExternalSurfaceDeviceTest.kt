@@ -52,7 +52,7 @@ class ExternalSurfaceDeviceTest(private val source: SamplingSource) {
                             state = state,
                         )
                         .fillMaxSize()
-                        .background(Color.White)
+                        .background(Color.White),
                 ) {
                     // Covers the whole status bar
                     AndroidView(

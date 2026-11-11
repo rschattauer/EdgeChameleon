@@ -69,7 +69,7 @@ public fun BenchmarkApp(mode: BenchmarkMode, screen: BenchmarkScreen) {
             BenchmarkMode.Off -> Modifier
             BenchmarkMode.Window ->
                 Modifier.edgeChameleon(
-                    tuning = EdgeChameleonTuning(samplingSource = SamplingSource.Window)
+                    tuning = EdgeChameleonTuning(samplingSource = SamplingSource.Window),
                 )
             BenchmarkMode.ContentNoBackoff ->
                 Modifier.edgeChameleon(
@@ -77,12 +77,12 @@ public fun BenchmarkApp(mode: BenchmarkMode, screen: BenchmarkScreen) {
                         EdgeChameleonTuning(
                             samplingSource = SamplingSource.Content,
                             maxIdleIntervalMillis = 100,
-                        )
+                        ),
                 )
             BenchmarkMode.Content,
             BenchmarkMode.Hints ->
                 Modifier.edgeChameleon(
-                    tuning = EdgeChameleonTuning(samplingSource = SamplingSource.Content)
+                    tuning = EdgeChameleonTuning(samplingSource = SamplingSource.Content),
                 )
         }
     Box(Modifier.fillMaxSize().then(library)) {
@@ -109,7 +109,7 @@ private fun SpinnerContent() {
             Modifier.align(Alignment.Center)
                 .size(96.dp)
                 .graphicsLayer { rotationZ = angle }
-                .background(Color(0xFFD32F2F))
+                .background(Color(0xFFD32F2F)),
         )
     }
 }
@@ -123,7 +123,7 @@ private fun AppBarsContent(hinted: Boolean) {
                 .then(if (hinted) Modifier.edgeChameleonHint(BarIcons.Light) else Modifier)
                 .background(barColor)
                 .windowInsetsPadding(WindowInsets.statusBars)
-                .height(56.dp)
+                .height(56.dp),
         )
         Box(Modifier.weight(1f)) { BandsScreen() }
         Box(
@@ -131,7 +131,7 @@ private fun AppBarsContent(hinted: Boolean) {
                 .then(if (hinted) Modifier.edgeChameleonHint(BarIcons.Light) else Modifier)
                 .background(barColor)
                 .windowInsetsPadding(WindowInsets.navigationBars)
-                .height(56.dp)
+                .height(56.dp),
         )
     }
 }

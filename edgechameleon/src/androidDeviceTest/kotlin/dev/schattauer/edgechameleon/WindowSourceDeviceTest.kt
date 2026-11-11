@@ -43,7 +43,7 @@ class WindowSourceDeviceTest {
                         state = state,
                     )
                     .fillMaxSize()
-                    .background(background)
+                    .background(background),
             ) {
                 topBand?.let { Box(Modifier.fillMaxWidth().height(200.dp).background(it)) }
             }

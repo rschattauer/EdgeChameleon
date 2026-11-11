@@ -77,7 +77,7 @@ class SamplingLoadDeviceTest {
                                 ),
                             state = state,
                         )
-                        .background(color)
+                        .background(color),
                 )
             }
         }

@@ -94,7 +94,7 @@ class EdgeChameleonDeviceTest {
                     Box(
                         Modifier.edgeChameleon(state = dialogState)
                             .fillMaxSize()
-                            .background(Color.White)
+                            .background(Color.White),
                     )
                 }
             }
@@ -325,7 +325,7 @@ class EdgeChameleonDeviceTest {
                         Box(
                             Modifier.edgeChameleon(state = belowState)
                                 .fillMaxSize()
-                                .background(Color.Black)
+                                .background(Color.Black),
                         )
                     }
                 }

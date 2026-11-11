@@ -110,7 +110,7 @@ internal fun MixedScreen() {
             MixedContent.Gradient ->
                 Box(
                     Modifier.fillMaxSize()
-                        .background(Brush.horizontalGradient(listOf(Color.Black, Color.White)))
+                        .background(Brush.horizontalGradient(listOf(Color.Black, Color.White))),
                 )
             MixedContent.Picture -> DrawnPicture()
         }
@@ -138,7 +138,7 @@ private fun DrawnPicture() {
                 0.65f to Color(0xFFF4A261),
                 0.66f to Color(0xFF1B2A1F),
                 1f to Color(0xFF0A120C),
-            )
+            ),
         )
         drawCircle(
             Color(0xFFFFE9B0),
