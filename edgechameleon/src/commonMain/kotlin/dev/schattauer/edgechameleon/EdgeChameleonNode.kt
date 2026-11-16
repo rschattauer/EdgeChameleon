@@ -73,6 +73,15 @@ internal class EdgeChameleonNode(
     private val usesWindow: Boolean
         get() = tuning.samplingSource == SamplingSource.Window && !windowFailed
 
+    /**
+     * Set while a WebView is shown. It goes blank or half drawn when it is drawn a second time, so
+     * the content is neither recorded nor drawn again then, and the bars are read from the window.
+     */
+    private var avoidsContent = false
+
+    private val readsWindow: Boolean
+        get() = if (avoidsContent) !windowFailed else usesWindow
+
     private var pixels = IntArray(0)
     private var statusWeights = FloatArray(0)
     private var navigationWeights = FloatArray(0)
@@ -137,6 +146,7 @@ internal class EdgeChameleonNode(
         bars = null
         graphicsContext = null
         coveredByHints = false
+        avoidsContent = false
         hints.forEach { it.releaseOwner(this) }
         hints.clear()
         hintBuffer.clear()
@@ -315,7 +325,7 @@ internal class EdgeChameleonNode(
 
     override fun ContentDrawScope.draw() {
         val context = graphicsContext
-        if (!isSampling || coveredByHints || usesWindow || context == null) {
+        if (!isSampling || coveredByHints || avoidsContent || usesWindow || context == null) {
             drawContent()
             return
         }
@@ -405,12 +415,32 @@ internal class EdgeChameleonNode(
             return
         }
 
+        val showsWebView = bars.showsWebView
+        if (showsWebView != avoidsContent) {
+            avoidsContent = showsWebView
+            if (showsWebView) releaseContentLayers()
+            invalidateDraw()
+            if (!showsWebView) {
+                // The content was not recorded while the WebView was shown, so let it be drawn
+                // once before it is read
+                throttle?.reset()
+                throttle?.request()
+                return
+            }
+        }
+        if (avoidsContent && windowFailed) {
+            // The window can not be read, and the WebView must not be drawn a second time, so the
+            // icons stay as they are
+            throttle?.reportResult(false)
+            return
+        }
+
         val width = cells
         val height = if (isSideNavigation) cells + 1 else 2
         val size = width * height
         if (pixels.size < size) pixels = IntArray(size)
         val hasPixels =
-            if (usesWindow) {
+            if (readsWindow) {
                 readWindow(
                     statusRegion.takeIf { statusNeedsPixels },
                     navigationRegion.takeIf { navigationNeedsPixels },

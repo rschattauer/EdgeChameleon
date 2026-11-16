@@ -14,6 +14,12 @@ internal interface PlatformBars {
     /** False while something else, such as a dialog window, has the focus. */
     val hasFocus: Boolean
 
+    /**
+     * True while a WebView is shown in the content. It goes blank or half drawn when a second
+     * renderer draws it, so the content must not be drawn a second time then.
+     */
+    val showsWebView: Boolean
+
     /** Starts reporting possible content and focus changes to [onChange]. */
     fun attach(onChange: () -> Unit)
 

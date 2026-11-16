@@ -77,6 +77,27 @@ AndroidView(
 )
 ```
 
+### WebView
+
+A `WebView` draws through a renderer callback that supports one renderer at a time. `Content` draws the content a second
+time, in a renderer of its own, to read the bars, and the `WebView` then goes blank or half drawn on the screen whenever
+something redraws.
+
+So while a `WebView` is shown in the content of the modifier, the library does not record or redraw the content, and
+reads the bars from the window with `PixelCopy`, as `Window` does. When the window can not be copied, for example because
+it is secure, nothing is read, and the icons stay as they are. The content is drawn a second time again as soon as the
+`WebView` is gone.
+
+For a screen with a `WebView`, tell the library the icons with a hint. A hint that covers a bar means nothing is read at
+all, with either source, and it works in a secure window too:
+
+```kotlin
+Scaffold(
+    modifier = Modifier.edgeChameleonHint(BarIcons.Dark), // light top bar and background
+    ...
+)
+```
+
 ## Diagnostics
 
 `EdgeChameleonState` can hand out what was sampled, for example to build a debug panel:

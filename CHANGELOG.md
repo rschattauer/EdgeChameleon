@@ -10,7 +10,10 @@
 
 **Changed**
 
-- Upcoming changes go here
+- While a `WebView` is shown in the content of `edgeChameleon`, the content is no longer drawn a second time to read the
+  bars, as that made the `WebView` flicker and go blank. The bars are read from the window instead, as with
+  `SamplingSource.Window`, and in a window that can not be copied, for example a secure one, they are not read until the
+  `WebView` is gone. A hint sets the icons without any reading
 
 **Documentation**
 

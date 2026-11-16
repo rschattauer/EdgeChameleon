@@ -143,6 +143,9 @@ has no effect without one.
 - A `TextureView` is sampled like other content, with both sources. A `SurfaceView` is not: it draws on a surface of its
   own that neither source sees, so its cells have no vote and the icons stay with the app. Use a hint or `forcedIcons`
   there, see [TextureView and SurfaceView](docs/ADVANCED.md#textureview-and-surfaceview).
+- A `WebView` goes blank when it is drawn a second time, so while one is shown, the bars are read from the window
+  instead of from the content, and in a window that can not be read, for example a secure one, they are not read at all.
+  A hint sets the icons there, see [WebView](docs/ADVANCED.md#webview).
 - Sampling pauses while another window, such as a `Dialog`, has the focus, and the icons keep their tint until the focus
   returns.
 - A full-screen `Dialog` has its own bars: add the modifier to the content of the dialog as well. It has no effect in a

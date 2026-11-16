@@ -4,8 +4,10 @@ import android.content.Context
 import android.content.ContextWrapper
 import android.os.Build
 import android.view.View
+import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.view.Window
+import android.webkit.WebView
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.node.CompositionLocalConsumerModifierNode
 import androidx.compose.ui.node.currentValueOf
@@ -28,6 +30,9 @@ private class AndroidBars(private val view: View) : PlatformBars {
 
     override val hasFocus: Boolean
         get() = view.hasWindowFocus()
+
+    override val showsWebView: Boolean
+        get() = view.containsShownWebView()
 
     private var onDrawListener: ViewTreeObserver.OnDrawListener? = null
     private var onFocusListener: ViewTreeObserver.OnWindowFocusChangeListener? = null
@@ -135,6 +140,15 @@ private class AndroidBars(private val view: View) : PlatformBars {
             controller.isAppearanceLightNavigationBars = navigationBar == BarIcons.Dark
         }
     }
+}
+
+private fun View.containsShownWebView(): Boolean {
+    if (this is WebView) return isShown
+    if (this !is ViewGroup) return false
+    for (index in 0 until childCount) {
+        if (getChildAt(index).containsShownWebView()) return true
+    }
+    return false
 }
 
 private tailrec fun Context.findActivityWindow(): Window? {
